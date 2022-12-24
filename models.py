@@ -1,19 +1,17 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import registry
-from sqlalchemy import Column, Integer, Text, String, DateTime, Boolean
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import registry
+# from sqlalchemy import Column, Integer, Text, String, DateTime, Boolean
+from flask_sqlalchemy import SQLAlchemy
+database=SQLAlchemy()
 
-Base=registry().generate_base()
 
-engine=create_engine("sqlite:///db.sqlite")
 
-class Comment(Base):
-    __tablename__="comment"
-    id=Column(Integer, primary_key=True)
-    name=Column(String(30 ))
-    date=Column(DateTime())
-    comment_text=Column(Text())
-    points=Column(Integer)
-    is_registered=Column(Boolean)
-    page_number=Column(Integer)
-
-Base.metadata.create_all(engine)
+class Comment(database.Model):
+    # __tablename__="comment"
+    id=database.Column(database.Integer, primary_key=True)
+    name=database.Column(database.String(30 ))
+    date=database.Column(database.DateTime())
+    comment_text=database.Column(database.Text())
+    points=database.Column(database.Integer)
+    is_registered=database.Column(database.Boolean)
+    page_number=database.Column(database.Integer)

@@ -1,0 +1,16 @@
+{% extends 'wrapper.html' %} asdasd {% block results %}
+<p>Találatok száma: {{len}}</p>
+{% for comment in comments %}
+<div class="comment">
+  <div>
+    <b class="{{'registered' if comment.is_registered else ''}}"> {{comment.name}} </b>
+    - ({{comment.points}}) <a target="_blank" href="https://forum.sodika.org/?pageNo={{comment.page_number}}#comment-{{comment.id}}">LINK</a>
+  </div>
+  <div></div>
+  <div>{{comment.comment_text |safe}}</div>
+  <div>
+    <p>---------------</p>
+    {{comment.date}}
+  </div>
+</div>
+{% endfor %} {% endblock %}
