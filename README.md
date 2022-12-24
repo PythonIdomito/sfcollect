@@ -19,3 +19,12 @@ A kommentek alapvető adatain felül menti azt is, hogy aki írta, az regisztrá
 Amikor fut a script, először azt ellenőrzi, hogy ha van rekord már az adatbázisban, akkor van-e az utolsótól 3 nappal korábbi komment. Ha van, akkor ennek az oldalszáma fogja képezni azt az adatot, amitől kezdve a script elkezdi "update"-lni az adatokat. Erre azért van szükség, mert így a kommentek pontszámai is frissülnek, aminek elég nagy az esélye, hogy a legutóbbi mentés óta változtak és hogy ne előről kezdje a mentést ha idő közben meg kell szakítani vagy megszakad. Először a főoldal nyílik meg, ahol a legutolsó oldal oldalszáma kerül kinyerésre. Ez fogja jelenteni azt az adatot, ameddig a script futni fog. Ha ez megvan akkor elkezdi mentegetni a kommenteket. Az adatbáziskezelés olyan, hogy ha az adott oldalszám maradék nélkül osztható 50-vel VAGY az utolsó oldalon van, az új rekordokat committolja az adatbázisba. Itt nem elég szimplán hozzáadni add/merge-el a rekordokat, kell commit-tolni is. Azért nem minden oldalnál van committolva, mert hátha így rövidebb idő alatt tud dolgozni a script. Az 50-es határt olyan aranyközéputas értéknek gondolom, ahol érdemes committolni az új hozzáadott/módosított rekordokat.
 
 A weboldal és ennek html forrása kezelése (kommentek adadtai kinyerése html kódból) Selenium és BeautifulSoup modulokkal van megoldva. Az előbbi a cloudflare védelem miatt kell, az utóbbi pedig azért, mert pusztán Selenium-mal kezelve brutálisan lassabb. BeautifulSoup sokkal gyorsabban nyeri ki az adott html kódból a szükséges adatokat.  A Selenium pedig a webdriver-es Chrome böngészővel léptet oldalról oldalra, áthidalva a cloudflare-t.
+
+## Keresés (Flask)
+A kommentek közti egyszerűbb keresésre egy lokálisan futtatható Flask webalkalmazást hoztam létre. Keresni kommentelő felhasználó név, regisztált-e, komment szövege és a kommentre kapott minimális pontok alapján lehet. A talált kommenteknél a nevek kékek, ha azt egy regisztrált felhasználó írta. Továbbá minden talált kommentnél van egy link, amin keresztül elérhető az eredeti komment a fórumon.
+
+Lokális webalkalmazást a következőképpen lehet elindítani: .\venv\Scripts\flask --debug run
+
+localhost:5000 címen érhető el az elindított webalkalmazás.
+
+(Perpillanat nincs még találatok oldalakra való tördelése, így nagy számú találatok kicsit lassabban tölthetnek be.)
