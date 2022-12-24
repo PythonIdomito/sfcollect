@@ -28,8 +28,8 @@ def results(paginate=None):
     if allempty: return render_template("results.html", comments=[], len=0)
     
     comments=db.session.query(Comment)
-    comments=comments.filter(Comment.comment_text.ilike(request.args["comment"])) if request.args["comment"]!="" else comments
-    comments=comments.filter(Comment.name.ilike(request.args["user"]) ) if request.args["user"]!="" else comments
+    comments=comments.filter(Comment.name.ilike(f'%{request.args["user"]}%') ) if request.args["user"]!="" else comments
+    comments=comments.filter(Comment.comment_text.ilike(f'%{request.args["comment"]}%')) if request.args["comment"]!="" else comments
     comments=comments.filter(request.args["is_reg"] == Comment.is_registered) if request.args["is_reg"]!="" else comments
     comments=comments.filter(request.args["points"] <= Comment.points) if request.args["points"]!="" else comments
     
